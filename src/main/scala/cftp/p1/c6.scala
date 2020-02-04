@@ -116,8 +116,8 @@ object Snippe30
 
 object Snippet31    
     def optionTail[A](l: List[A]): Option[List[A]] = l match
-        case Nil => None
-        case Cons(_, t) => Some(t)
+        case List.Nil => None
+        case List.Cons(_, t) => Some(t)
 
 type Snippet32[A, B, C] = (A, Either[B, C])
 type Snippet33[A, B, C] = Either[(A, B), (A, C)]
