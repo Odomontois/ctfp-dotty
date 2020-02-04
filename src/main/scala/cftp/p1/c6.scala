@@ -109,11 +109,12 @@ object Snippet28
 object Snippet29
     type Option[+A] = Either[Unit, A]
 
-object Snippe30
+object Snippet30
     enum List[+A]
         case Nil
         case Cons(head: A, tail: List[A])
 
+import Snippet30._
 object Snippet31    
     def optionTail[A](l: List[A]): Option[List[A]] = l match
         case List.Nil => None
