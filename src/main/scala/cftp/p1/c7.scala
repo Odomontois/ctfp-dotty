@@ -56,6 +56,12 @@ trait Functor[F[_]]
 
     def[A, B] (fa: F[A]) mapf (f: A => B) : F[B] = fmap(f)(fa)
 
+import scala.deriving.Mirror
+
+object Functor
+    type Arb
+    inline given derived[C[_]](using m: Mirror.Of[C[Arb]]) as Functor[C] = null
+
 //snippet14
 given Functor[Option]
     def fmap[A, B] (f: A => B) =
@@ -104,16 +110,14 @@ trait Snippet25
     val nats: LazyList[Int] = LazyList.from(1)
 
 //snippet26
-case class Const[C, A](c: C)
+type Const[+C, +A] = C
 
 trait Snippet27[C]
     def fmap[A, B](f: A => B): Const[C, A] => Const[C, B]
 
-
-// snippet28
-given [C] as Functor[[A] =>> Const[C, A]]
-    def fmap[A, B](f: A => B) = 
-        case Const(c) => Const(c)
+object Snippet28
+    given [C] as Functor[[A] =>> Const[C, A]]
+        def fmap[A, B](f: A => B) = identity
 
 //alt snippet 26
 enum Const1[C, +A]
